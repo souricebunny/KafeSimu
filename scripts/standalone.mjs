@@ -1,0 +1,12 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import {resolve} from 'node:path';
+const files=['vendor/three.core.js','vendor/three.module.js','vendor/OrbitControls.js','vendor/RoundedBoxGeometry.js','ice-physics.js','simulation.js','guidance.js','camera.js','basket.js','glass-model.js','scene.js','interaction.js','audio.js','app.js'];
+const modules=Object.fromEntries(await Promise.all(files.map(async f=>[f,await readFile(resolve('dist',f),'utf8')])));
+const garden=(await readFile('dist/assets/cafe-garden.png')).toString('base64');
+const css=(await readFile('dist/style.css','utf8')).replace('./assets/cafe-garden.png',`data:image/png;base64,${garden}`);
+let html=await readFile('dist/index.html','utf8');
+html=html.replace('<link rel="stylesheet" href="style.css">',`<style>${css}</style>`).replace(/<script type="importmap">[\s\S]*?<\/script>/,'');
+const json=JSON.stringify(modules).replace(/</g,'\\u003c');
+const bootstrap=`const modules=${json};const cache=new Map();function pathFor(from,to){if(to==='three')return 'vendor/three.module.js';const parts=from.split('/');parts.pop();for(const p of to.split('/')){if(p==='..')parts.pop();else if(p!=='.')parts.push(p);}return parts.join('/');}function bundle(path){if(cache.has(path))return cache.get(path);if(!modules[path])throw new Error('Missing module '+path);const code=modules[path].replace(/\\bfrom\\s*(['"])([^'"]+)\\1/g,(all,q,to)=>{const next=pathFor(path,to);return modules[next]?'from '+JSON.stringify(bundle(next)):all;});const url=URL.createObjectURL(new Blob([code],{type:'text/javascript'}));cache.set(path,url);return url;}import(bundle('app.js')).catch(error=>{console.error(error);document.getElementById('fallback').hidden=false;});`;
+html=html.replace('<script type="module" src="app.js"></script>',()=>`<script type="module">${bootstrap}</script>`);
+const out=process.argv[2]??'kafesimu.html';await writeFile(out,html);console.log(resolve(out));

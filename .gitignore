@@ -1,0 +1,8 @@
+node_modules/
+.DS_Store
+*.log
+*.blend1
+.env
+.env.*
+!.env.example
+kafesimu.html
