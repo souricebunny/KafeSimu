@@ -1,5 +1,7 @@
 # kafesimu.
 
+A coffee machine simulator for coffee lovers.
+
 A static Three.js coffee simulator with local pinned Three.js 0.180.0. No backend, accounts, persistence or public API calls.
 
 ## Run
