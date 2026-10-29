@@ -41,7 +41,7 @@ Replace `YOUR_USERNAME` with your GitHub username. Sign in through Git's normal 
 
 ## Hosting
 
-Publish the contents of `dist/` to any static host; there is no build command or backend. Keep its subfolders intact. All module and asset paths are relative, so repository subpaths work. Uploading the repository to GitHub alone does not publish a website; configure static hosting separately if you want a GitHub-hosted preview.
+Publish the contents of `dist/` to any static host; there is no build command or backend. Keep its subfolders intact. All module and asset paths are relative, so repository subpaths work. The included `.github/workflows/pages.yml` tests and deploys `dist/` on each push to `main`. Enable GitHub Pages with **GitHub Actions** as the publishing source in the repository Settings → Pages.
 
 ## Make a drink
 
