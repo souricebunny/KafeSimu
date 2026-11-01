@@ -4,46 +4,6 @@ A coffee machine simulator for coffee lovers.
 
 A static Three.js coffee simulator with local pinned Three.js 0.180.0. No backend, accounts, persistence or public API calls.
 
-## Run
-
-Open the standalone HTML in a WebGL-capable browser, or run `npm start` for http://127.0.0.1:4173. Node 22.15+ is required for the regression suite (`npm test`). `node scripts/standalone.mjs /absolute/output.html` embeds every module and the garden image in one downloadable file.
-
-## Project files
-
-- `dist/`: ready-to-host website, including local Three.js, artwork and geometry.
-- `assets/cafe-tumbler.blend`: editable Blender glass and espresso cup.
-- `scripts/model-glass.py`: rebuild the glassware with Blender.
-- `scripts/standalone.mjs`: generate a single-file offline version.
-- `tests/`: simulation, interaction, geometry and camera regression tests.
-- `server.js`: dependency-free local preview server.
-
-No installation or build is needed to preview the site. From this folder:
-
-```sh
-npm start
-npm test
-npm run build:standalone
-```
-
-The final command writes `kafesimu.html` in this folder. Open that file directly, or serve `dist/` through a static web server. The modular `dist/index.html` needs HTTP; use `npm start` instead of double-clicking it.
-
-## Push to GitHub
-
-Create an empty repository called `kafesimu` on your GitHub account. Extract the source ZIP, open a terminal inside the extracted `kafesimu` folder, then run:
-
-```sh
-git init -b main
-git add .
-git commit -m "Initial kafesimu release"
-git remote add origin https://github.com/YOUR_USERNAME/kafesimu.git
-git push -u origin main
-```
-
-Replace `YOUR_USERNAME` with your GitHub username. Sign in through Git's normal authentication prompt when asked. The ZIP contains no Git history, account credentials or Sites project configuration.
-
-## Hosting
-
-Publish the contents of `dist/` to any static host; there is no build command or backend. Keep its subfolders intact. All module and asset paths are relative, so repository subpaths work. The included `.github/workflows/pages.yml` tests and deploys `dist/` on each push to `main`. Enable GitHub Pages with **GitHub Actions** as the publishing source in the repository Settings → Pages.
 
 ## Make a drink
 
